@@ -5,6 +5,7 @@ import com.training.Dto.StudentDto;
 
 import com.training.Dto.updateDto;
 import com.training.service.StudentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class studentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentDto> createStudent(@RequestBody AddStudentRequestDto addStudentRequestDto){
+    public ResponseEntity<StudentDto> createStudent(@RequestBody @Valid AddStudentRequestDto addStudentRequestDto){
           return ResponseEntity.status(HttpStatus.CREATED).body(studentService.CreateNewStudent(addStudentRequestDto));
     }
 
@@ -44,12 +45,12 @@ public class studentController {
     }
 
     @PutMapping("/{id}")
-   public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id, @RequestBody AddStudentRequestDto addStudentRequestDto){
+   public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id, @RequestBody @Valid AddStudentRequestDto addStudentRequestDto){
         return ResponseEntity.ok(studentService.updateStudent(id, addStudentRequestDto));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<StudentDto> updateStudentByID(@PathVariable Long id, @RequestBody updateDto updateDto){
+    public ResponseEntity<StudentDto> updateStudentByID(@PathVariable Long id, @RequestBody @Valid updateDto updateDto){
         return ResponseEntity.ok(studentService.updateStudentByID(id, updateDto));
     }
 
