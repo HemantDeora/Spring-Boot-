@@ -1,17 +1,19 @@
 package com.training.Entity;
 
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-//@Getter
-//@Setter
-//@ToString
-//@AllArgsConstructor
-//@NoArgsConstructor
-@Data
+@Entity
+@Table(name="StudentDetails")
+@Getter
+@Setter
 public class Student {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String name;
-    private int age;
-    private String address;
+    private String email;
 
 }
