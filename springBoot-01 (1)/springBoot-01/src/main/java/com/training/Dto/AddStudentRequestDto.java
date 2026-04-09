@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentDto {
+public class AddStudentRequestDto {
 
-    private long id;
     private String name;
     private String email;
 }

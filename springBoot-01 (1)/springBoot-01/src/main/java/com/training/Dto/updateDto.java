@@ -1,5 +1,6 @@
 package com.training.Dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentDto {
+public class updateDto {
 
-    private long id;
     private String name;
     private String email;
 }
