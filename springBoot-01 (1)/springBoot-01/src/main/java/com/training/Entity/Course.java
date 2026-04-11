@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name="courses")
 @Data
@@ -18,6 +20,9 @@ public class Course {
     private String courseName;
     private String courseDuration;
     private String courseTime;
+
+    @ManyToMany(mappedBy = "course")
+    private List<Student> students;
 
 
 

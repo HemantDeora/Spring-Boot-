@@ -3,8 +3,11 @@ package com.training.service.impl;
 import com.training.Dto.AddStudentRequestDto;
 import com.training.Dto.StudentDto;
 import com.training.Dto.updateDto;
+import com.training.Entity.Course;
 import com.training.Entity.Student;
+import com.training.Repo.CourseRepo;
 import com.training.Repo.StudentRepo;
+import com.training.service.CourseService;
 import com.training.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -17,6 +20,7 @@ import java.util.List;
 public class StudentServiceimpl implements StudentService {
 
     private final StudentRepo studentRepo;
+    private final CourseRepo courseRepo;
     public final ModelMapper modelMapper;
 
     @Override
@@ -75,6 +79,18 @@ public class StudentServiceimpl implements StudentService {
         return modelMapper.map(student, StudentDto.class);
 
 
+    }
+
+    @Override
+    public StudentDto addCourseToStudent(Long studentID, Long courseId) {
+
+        Student student = studentRepo.findById(studentID).orElseThrow(() -> new IllegalArgumentException("Student not found with id  " + studentID));
+
+        Course course = courseRepo.findById(courseId).orElseThrow(() -> new IllegalArgumentException("Course not found with id  " + courseId));
+
+        student.getCourse().add(course);
+       Student saved =  studentRepo.save(student);
+        return modelMapper.map(saved, StudentDto.class);
     }
 }
 

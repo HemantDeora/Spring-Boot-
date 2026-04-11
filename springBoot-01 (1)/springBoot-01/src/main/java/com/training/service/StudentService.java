@@ -20,4 +20,6 @@ public interface StudentService {
     StudentDto updateStudent(Long id, AddStudentRequestDto addStudentRequestDto);
 
     StudentDto updateStudentByID(Long id, updateDto updateDto);
+
+    StudentDto addCourseToStudent(Long studentID, Long courseId);
 }

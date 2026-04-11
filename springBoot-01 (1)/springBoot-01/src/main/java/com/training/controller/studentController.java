@@ -54,6 +54,11 @@ public class studentController {
         return ResponseEntity.ok(studentService.updateStudentByID(id, updateDto));
     }
 
+    @PostMapping("/{StudentID}/courses/{CourseId}")
+    public ResponseEntity<StudentDto> enrollCourse(@PathVariable Long StudentID, @PathVariable Long CourseId){
+        return ResponseEntity.ok(studentService.addCourseToStudent(StudentID, CourseId));
+    }
+
 }
 
 

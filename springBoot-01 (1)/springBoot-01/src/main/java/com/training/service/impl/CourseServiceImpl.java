@@ -2,6 +2,7 @@ package com.training.service.impl;
 
 import com.training.Dto.Addcourserequestdto;
 import com.training.Dto.CourseDto;
+import com.training.Dto.Updatecoursedto;
 import com.training.Entity.Course;
 import com.training.Repo.CourseRepo;
 import com.training.service.CourseService;
@@ -28,8 +29,50 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseDto addCourse(Addcourserequestdto addcourserequestdto) {
-       Course Newcourse = modelMapper.map(addcourserequestdto, Course.class);
-       Course course =   courseRepo.save(Newcourse);
-        return modelMapper.map(course, CourseDto.class);
+       Course course = modelMapper.map(addcourserequestdto, Course.class);
+       Course saved = courseRepo.save(course);
+       return modelMapper.map(saved, CourseDto.class);
+    }
+
+    @Override
+    public CourseDto getCourseByID(Long id) {
+       Course course = courseRepo.findById(id).orElseThrow(() -> new  IllegalArgumentException("Course not found"));
+       return modelMapper.map(course, CourseDto.class);
+    }
+
+    @Override
+    public void deleteCourseByID(long id) {
+        Course course = courseRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("id not found "));
+        courseRepo.delete(course);
+    }
+
+
+
+    @Override
+    public CourseDto updateCourseByID(Long id, Updatecoursedto updatecoursedto) {
+        Course course = courseRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("id not found "));
+        course.setCourseName(updatecoursedto.getCourseName());
+        course.setCourseDuration(updatecoursedto.getCourseDuration());
+        course.setCourseTime(updatecoursedto.getCourseTime());
+
+        Course saved = courseRepo.save(course);
+        return modelMapper.map(saved, CourseDto.class);
+    }
+
+    @Override
+    public CourseDto updateCourse(Long id, Updatecoursedto updatecoursedto) {
+        Course course = courseRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("id not found "));
+
+        if(updatecoursedto.getCourseName() !=null){
+            course.setCourseName(updatecoursedto.getCourseName());
+        }
+        if(updatecoursedto.getCourseDuration() !=null){
+            course.setCourseDuration(updatecoursedto.getCourseDuration());
+        }
+        if(updatecoursedto.getCourseTime() !=null){
+            course.setCourseTime(updatecoursedto.getCourseTime());
+        }
+        Course saved = courseRepo.save(course);
+        return modelMapper.map(saved, CourseDto.class);
     }
 }
